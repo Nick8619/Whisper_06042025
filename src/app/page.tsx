@@ -26,7 +26,7 @@ export default function Home() {
     currency: 'EUR'
   });
   const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
-  const [chartAnalysis, setChartAnalysis] = useState(null);
+  const [chartAnalysis, setChartAnalysis] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
   // Fetch investments and portfolio summary

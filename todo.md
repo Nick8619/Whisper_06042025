@@ -14,6 +14,6 @@
 - [x] Responsives Design und Styling sicherstellen
 
 ## Deployment und Abschluss
-- [ ] Auf GitHub und Vercel deployen
-- [ ] Funktionalität testen und validieren
-- [ ] Endprodukt an Benutzer liefern
+- [x] Auf GitHub und Vercel deployen
+- [x] Funktionalität testen und validieren
+- [x] Endprodukt an Benutzer liefern
