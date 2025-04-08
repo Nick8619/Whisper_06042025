@@ -47,8 +47,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setError(null);
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) setError(error.message);
-    } catch (error: any) {
-      setError(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     } finally {
       setLoading(false);
     }
@@ -60,8 +64,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setError(null);
       const { error } = await supabase.auth.signUp({ email, password });
       if (error) setError(error.message);
-    } catch (error: any) {
-      setError(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     } finally {
       setLoading(false);
     }
@@ -73,8 +81,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setError(null);
       const { error } = await supabase.auth.signOut();
       if (error) setError(error.message);
-    } catch (error: any) {
-      setError(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     } finally {
       setLoading(false);
     }

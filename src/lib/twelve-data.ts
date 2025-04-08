@@ -114,7 +114,16 @@ export async function getMultipleQuotes(symbols: string[]): Promise<Record<strin
 /**
  * Searches for symbols by name or keyword
  */
-export async function searchSymbols(query: string): Promise<any[]> {
+interface SymbolSearchResult {
+  symbol: string;
+  name: string;
+  currency: string;
+  exchange: string;
+  type: string;
+  country: string;
+}
+
+export async function searchSymbols(query: string): Promise<SymbolSearchResult[]> {
   const url = `${BASE_URL}/symbol_search?symbol=${query}&apikey=${TWELVE_DATA_API_KEY}`;
   const response = await fetch(url);
   
@@ -129,7 +138,14 @@ export async function searchSymbols(query: string): Promise<any[]> {
 /**
  * Updates investment data with current market prices
  */
-export async function updateInvestmentPrices(investments: any[]) {
+interface Investment {
+  symbol: string;
+  total_quantity?: number;
+  total_cost?: number;
+  [key: string]: any; // For other properties that might exist
+}
+
+export async function updateInvestmentPrices(investments: Investment[]) {
   if (investments.length === 0) return investments;
   
   const symbols = investments.map(inv => inv.symbol);

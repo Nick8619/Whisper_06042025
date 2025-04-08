@@ -8,7 +8,7 @@ import PortfolioSummary from '@/components/PortfolioSummary';
 import ChartAnalysisComponent from '@/components/ChartAnalysis';
 import PriceAlertForm, { PriceAlertList, Notifications } from '@/components/PriceAlerts';
 import { Investment, Alert, PortfolioSummary as PortfolioSummaryType } from '@/lib/types';
-import { createInvestment, updateInvestment, deleteInvestment, getInvestments, getPortfolioSummary } from '@/lib/api';
+import { createInvestment, deleteInvestment, getInvestments, getPortfolioSummary } from '@/lib/api';
 import { createAlert, deleteAlert, getAlerts } from '@/lib/api';
 import { getChartAnalysis } from '@/lib/api';
 import { updateInvestmentPrices } from '@/lib/twelve-data';
@@ -25,8 +25,7 @@ export default function Home() {
     totalAssets: 0,
     currency: 'EUR'
   });
-  const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
-  const [chartAnalysis, setChartAnalysis] = useState<any>(null);
+  const [chartAnalysis, setChartAnalysis] = useState<Record<string, unknown> | null>(null);
   const [loading, setLoading] = useState(false);
 
   // Fetch investments and portfolio summary
@@ -35,7 +34,7 @@ export default function Home() {
       fetchInvestments();
       fetchAlerts();
     }
-  }, [user]);
+  }, [user, fetchInvestments, fetchAlerts]);
 
   const fetchInvestments = async () => {
     if (!user) return;
@@ -71,7 +70,7 @@ export default function Home() {
     }
   };
 
-  const handleAddInvestment = async (data: any) => {
+  const handleAddInvestment = async (data: Record<string, unknown>) => {
     if (!user) return;
     
     try {
@@ -114,7 +113,7 @@ export default function Home() {
     setChartAnalysis(analysis);
   };
 
-  const handleAddAlert = async (data: any) => {
+  const handleAddAlert = async (data: Record<string, unknown>) => {
     if (!user) return;
     
     try {
