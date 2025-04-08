@@ -28,14 +28,7 @@ export default function Home() {
   const [chartAnalysis, setChartAnalysis] = useState<Record<string, unknown> | null>(null);
   const [loading, setLoading] = useState(false);
 
-  // Fetch investments and portfolio summary
-  useEffect(() => {
-    if (user) {
-      fetchInvestments();
-      fetchAlerts();
-    }
-  }, [user, fetchInvestments, fetchAlerts]);
-
+  // Define fetchInvestments and fetchAlerts before using them in useEffect
   const fetchInvestments = async () => {
     if (!user) return;
     
@@ -69,6 +62,14 @@ export default function Home() {
       console.error('Error fetching alerts:', error);
     }
   };
+
+  // Fetch investments and portfolio summary
+  useEffect(() => {
+    if (user) {
+      fetchInvestments();
+      fetchAlerts();
+    }
+  }, [user, fetchInvestments, fetchAlerts]);
 
   const handleAddInvestment = async (data: Record<string, unknown>) => {
     if (!user) return;
@@ -108,7 +109,6 @@ export default function Home() {
   };
 
   const handleAnalyzeInvestment = (symbol: string) => {
-    setSelectedSymbol(symbol);
     const analysis = getChartAnalysis(symbol);
     setChartAnalysis(analysis);
   };
