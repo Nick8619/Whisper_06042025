@@ -7,7 +7,7 @@ import InvestmentList from '@/components/InvestmentList';
 import PortfolioSummary from '@/components/PortfolioSummary';
 import ChartAnalysisComponent from '@/components/ChartAnalysis';
 import PriceAlertForm, { PriceAlertList, Notifications } from '@/components/PriceAlerts';
-import { Investment, Alert, PortfolioSummary as PortfolioSummaryType } from '@/lib/types';
+import type { Investment, Alert, PortfolioSummary as PortfolioSummaryType } from '@/lib/types';
 import { createInvestment, deleteInvestment, getInvestments, getPortfolioSummary } from '@/lib/api';
 import { createAlert, deleteAlert, getAlerts } from '@/lib/api';
 import { getChartAnalysis } from '@/lib/api';
@@ -39,7 +39,8 @@ export default function Home() {
       // Update with current market prices
       data = await updateInvestmentPrices(data);
       
-      setInvestments(data);
+      // Explicitly cast the result to ensure type compatibility
+      setInvestments(data as Investment[]);
       
       // Update portfolio summary
       const summary = await getPortfolioSummary(user.id);
